@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ======================================================
+// USER / ADMIN
+// ======================================================
+
+enum Role {
+  SUPER_ADMIN
+  EDITOR
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(EDITOR)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([role])
+  @@map("users")
+}
+
+// ======================================================
+// NOTICE
+// ======================================================
+
+model Notice {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  fileUrl     String?
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([isPublished])
+  @@index([createdAt])
+  @@map("notices")
+}
+
+// ======================================================
+// DEPARTMENT
+// ======================================================
+
+model Department {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  faculty     Faculty[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("departments")
+}
+
+// ======================================================
+// FACULTY
+// ======================================================
+
+model Faculty {
+  id            String  @id @default(cuid())
+  name          String
+  designation   String
+  photoUrl      String?
+  bio           String?
+  qualification String?
+  email         String?
+  phone         String?
+
+  departmentId String
+  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+
+  displayOrder Int      @default(0)
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([departmentId])
+  @@index([isActive])
+  @@index([displayOrder])
+  @@map("faculty")
+}
