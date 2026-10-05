@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
 /* ======================================================
@@ -12,26 +13,26 @@ import { Menu, X } from "lucide-react";
 const leftNavItems = [
   {
     label: "Home",
-    href: "#home",
+    href: "/",
   },
   {
     label: "About Us",
-    href: "#about",
+    href: "/about",
   },
   {
     label: "Academics",
-    href: "#academics",
+    href: "/academics",
   },
 ];
 
 const rightNavItems = [
   {
     label: "Campus",
-    href: "#campus",
+    href: "/campus",
   },
   {
     label: "Career",
-    href: "#career",
+    href: "/careers",
   },
 ];
 
@@ -40,13 +41,14 @@ const rightNavItems = [
    ====================================================== */
 
 export default function Navbar() {
+  const pathname = usePathname();
+
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const mobileNavItems = [
-    ...leftNavItems,
-    ...rightNavItems,
-  ];
+  const isHomePage = pathname === "/";
+
+  const mobileNavItems = [...leftNavItems, ...rightNavItems];
 
   /* ======================================================
      SCROLL STATE
@@ -64,10 +66,7 @@ export default function Navbar() {
     });
 
     return () => {
-      window.removeEventListener(
-        "scroll",
-        handleScroll
-      );
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -79,8 +78,15 @@ export default function Navbar() {
     setIsOpen(false);
   };
 
+  /*
+   * Homepage:
+   * transparent initially, solid after scrolling.
+   *
+   * Inner pages:
+   * always solid.
+   */
   const showSolidHeader =
-    isScrolled || isOpen;
+    !isHomePage || isScrolled || isOpen;
 
   /* ======================================================
      RENDER
@@ -97,11 +103,7 @@ export default function Navbar() {
         duration-500
         ease-out
 
-        ${
-          isScrolled
-            ? "top-0"
-            : "top-9"
-        }
+        ${isScrolled ? "top-0" : "top-9"}
 
         ${
           showSolidHeader
@@ -112,12 +114,12 @@ export default function Navbar() {
     >
       {/* ==================================================
           MAIN NAVBAR
-          ================================================== */}
+      ================================================== */}
 
       <div className="relative mx-auto flex h-20 max-w-7xl items-center px-5 sm:px-6 lg:px-8">
         {/* ==================================================
             DESKTOP NAVIGATION
-            ================================================== */}
+        ================================================== */}
 
         <div className="hidden w-full items-center justify-center lg:flex">
           {/* LEFT */}
@@ -126,26 +128,36 @@ export default function Navbar() {
             aria-label="Primary navigation"
             className="flex items-center gap-8 pr-12"
           >
-            {leftNavItems.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`
-                  text-sm
-                  font-medium
-                  transition-colors
-                  duration-300
+            {leftNavItems.map((item) => {
+              const isActive =
+                item.href === "/about"
+                  ? pathname === "/about"
+                  : item.href === "/" && pathname === "/";
 
-                  ${
-                    showSolidHeader
-                      ? "text-navy hover:text-red"
-                      : "text-white hover:text-white/70"
-                  }
-                `}
-              >
-                {item.label}
-              </Link>
-            ))}
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`
+                    relative
+                    text-sm
+                    font-medium
+                    transition-colors
+                    duration-300
+
+                    ${
+                      showSolidHeader
+                        ? isActive
+                          ? "text-red"
+                          : "text-navy hover:text-red"
+                        : "text-white hover:text-white/70"
+                    }
+                  `}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* CENTER LOGO SPACE */}
@@ -185,7 +197,7 @@ export default function Navbar() {
             {/* CONTACT */}
 
             <Link
-              href="#contact"
+              href="/contact"
               className="
                 inline-flex
                 h-11
@@ -210,10 +222,7 @@ export default function Navbar() {
 
         {/* ==================================================
             LOGO
-
-            Mobile  -> left
-            Desktop -> center
-            ================================================== */}
+        ================================================== */}
 
         <Link
           href="/"
@@ -249,13 +258,11 @@ export default function Navbar() {
 
         {/* ==================================================
             MOBILE MENU BUTTON
-            ================================================== */}
+        ================================================== */}
 
         <button
           type="button"
-          onClick={() =>
-            setIsOpen((current) => !current)
-          }
+          onClick={() => setIsOpen((current) => !current)}
           aria-label={
             isOpen
               ? "Close navigation"
@@ -291,7 +298,7 @@ export default function Navbar() {
 
       {/* ==================================================
           MOBILE NAVIGATION
-          ================================================== */}
+      ================================================== */}
 
       <div
         id="mobile-navigation"
@@ -340,7 +347,7 @@ export default function Navbar() {
           {/* MOBILE CONTACT */}
 
           <Link
-            href="#contact"
+            href="/#contact"
             onClick={closeMenu}
             className="
               mt-5
