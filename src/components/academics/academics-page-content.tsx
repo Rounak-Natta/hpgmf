@@ -12,7 +12,7 @@ const courses = [
     title: "MBBS",
     description:
       "Medical education combining scientific foundations, clinical learning and patient-centred healthcare.",
-    duration: "5.5 Years",
+    duration: "4.5 Years",
     admission: "NEET-UG",
     focus: "Medical Education · Clinical Learning",
     href: "#",

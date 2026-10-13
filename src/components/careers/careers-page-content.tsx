@@ -1,257 +1,365 @@
-import Image from "next/image";
 
-import {
-  ArrowRight,
-  ArrowUpRight,
-  CalendarDays,
-  Mail,
-  MapPin,
-} from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Mail, MapPin, BriefcaseBusiness } from "lucide-react";
 
 /* ======================================================
-   DATA
+   DATA — EXACT CONTENT FROM PROVIDED DOCUMENT
 ====================================================== */
 
-const positions = [
-  "Principal",
-  "Vice Principal",
-  "Dean",
-  "Professors",
-  "Associate Professors",
-  "Assistant Professors",
-  "Senior Residents",
-  "Tutors",
+const medicalPositions = [
+  {
+    position: "Principal / Vice Principal / Dean",
+    details:
+      "Academic Administration (Minimum 10+ years teaching experience as Professor)",
+  },
+  {
+    position:
+      "Professors /Associate Professors / Assistant Professors",
+    details:
+      "Anatomy, Physiology, Biochemistry, Pathology, Microbiology, Pharmacology, Forensic Medicine, Community Medicine, General Medicine, Paediatrics, Psychiatry, Dermatology, General Surgery, Orthopaedics, ENT, Ophthalmology, OBG, Anesthesiology, Radio-Diagnosis, Dentistry and all other Pre-Clinical, Para-Clinical, and Clinical Departments. Qualifications as per NMC Norms",
+  },
+  {
+    position: "Senior Residents / Tutors",
+    details:
+      "Across all major clinical and non-clinical specialties. Qualifications as per NMC Norms",
+  },
+];
+
+const nursingPositions = [
+  {
+    position: "Principal",
+    details:
+      "M.Sc. (Nursing) having total 15 years’ experience with M.Sc. (Nursing) out of which 10 years after M.Sc. (Nursing) in collegiate program. Ph.D. (Nursing) is desirable",
+  },
+  {
+    position: "Vice Principal",
+    details:
+      "Vice-Principal cum Professor - Essential Qualification: M.Sc. (Nursing) Experience: M.Sc. (Nursing) Total 12 years’ experience with M.Sc. (Nursing) out of which 10 years teaching experience after M.Sc. (Nursing) Ph.D. (Nursing) is desirable",
+  },
+  {
+    position: "Professor / Associate Professor",
+    details:
+      "Essential Qualification: M.Sc. (Nursing) Experience: M.Sc. (Nursing) Total 12 years’ experience with M.Sc. (Nursing) out of which 10 / 8 years teaching experience after M.Sc. (Nursing). Ph.D. (Nursing) is desirable",
+  },
+  {
+    position: "Assistant Professor",
+    details:
+      "M.Sc. Nursing with minimum 3 years of teaching experience",
+  },
+  {
+    position: "Tutors / Clinical Instructors",
+    details:
+      "M.Sc. Nursing or B.Sc. Nursing / P.B.B.Sc. Nursing with 1 year of experience",
+  },
 ];
 
 /* ======================================================
-   PAGE
+   MAIN PAGE
 ====================================================== */
 
-export function CareersPageContent() {
+export function CareerPageContent() {
   return (
     <>
-      {/* ==================================================
-          HERO
-      ================================================== */}
+      {/* HERO */}
 
       <section className="overflow-hidden bg-white">
-        <div className="mx-auto grid max-w-[1240px] gap-10 px-5 pb-14 pt-10 sm:px-8 sm:py-18 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16 lg:px-10 lg:py-24">
-          {/* CONTENT */}
-
+        <div className="mx-auto grid max-w-[1240px] gap-10 px-5 pb-16 pt-12 sm:px-8 sm:py-20 lg:grid-cols-[1fr_1fr] lg:items-center lg:gap-16 lg:px-10 lg:py-24">
           <div>
             <SectionLabel>Careers</SectionLabel>
 
             <p className="mt-6 text-[10px] font-semibold uppercase tracking-[0.2em] text-navy/45">
-              H P Ghosh Memorial Medical College
+              H.P. Ghosh Memorial Foundation
             </p>
 
-            <h1 className="mt-3 max-w-xl text-[2.7rem] font-semibold leading-[1.03] tracking-[-0.05em] text-navy sm:text-5xl lg:text-[4.1rem]">
-              Grow With Us.
+            <h1 className="mt-4 max-w-xl text-[2.8rem] font-semibold leading-[1.05] tracking-[-0.05em] text-navy sm:text-5xl lg:text-[4rem]">
+              Build a career.
               <span className="block font-normal text-navy/45">
-                Shape healthcare futures.
+                Shape the future of healthcare.
               </span>
             </h1>
 
-            <p className="mt-6 max-w-xl text-[14px] leading-6 text-muted-foreground sm:text-[15px] sm:leading-7">
-              Be part of building an institution committed to developing the
-              next generation of healthcare professionals.
-            </p>
-
-            <p className="mt-4 max-w-xl text-[14px] leading-6 text-muted-foreground sm:text-[15px] sm:leading-7">
-              We welcome academicians, clinicians and professionals who share
-              our commitment to{" "}
-              <strong className="font-medium text-navy">
-                academic excellence, clinical learning and compassionate care.
-              </strong>
+            <p className="mt-7 max-w-xl text-[14px] leading-7 text-muted-foreground sm:text-[15px]">
+              The H.P. Ghosh Memorial Foundation, an initiative driven by the vision of inclusive healthcare and education across Eastern and North-Eastern India, invites applications from distinguished academicians, medical professionals, and visionary leaders for its upcoming state-of-the-art medical and nursing institutions.
             </p>
 
             <a
               href="#openings"
-              className="group mt-7 inline-flex items-center gap-2 text-sm font-semibold text-navy transition-colors hover:text-red"
+              className="group mt-8 inline-flex h-12 items-center gap-3 rounded-xl bg-red px-6 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
             >
-              View current openings
-
+              Explore Opportunities
               <ArrowRight
-                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                className="h-4 w-4 transition-transform group-hover:translate-x-1"
                 strokeWidth={1.7}
               />
             </a>
           </div>
 
-          {/* IMAGE */}
+          <div className="relative">
+            <div className="absolute left-4 top-4 h-full w-full rounded-[1.5rem] bg-light-blue/70" />
 
-          <CareerImage />
+            <div className="relative h-[300px] overflow-hidden rounded-[1.5rem] shadow-[0_24px_65px_rgba(23,40,92,0.14)] sm:h-[420px] lg:h-[490px]">
+              <Image
+                src="/careers/careers-hero.webp"
+                alt="Careers at H.P. Ghosh Memorial Foundation"
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-navy/65 to-transparent" />
+              <span className="absolute bottom-5 left-5 rounded-full bg-white/95 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-navy">
+                Medical · Nursing · Education
+              </span>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ==================================================
-          OPENINGS
-      ================================================== */}
+      {/* UPCOMING INSTITUTIONS */}
 
-      <section
-        id="openings"
-        className="border-y border-border bg-light-grey/55"
-      >
-        <div className="mx-auto max-w-[1240px] px-5 py-14 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-          <div className="flex flex-col gap-5 border-b border-navy/10 pb-8 sm:flex-row sm:items-end sm:justify-between">
+      <section className="border-y border-border bg-light-grey/55">
+        <div className="mx-auto max-w-[1240px] px-5 py-16 sm:px-8 lg:px-10 lg:py-20">
+          <SectionLabel>Our Institutions</SectionLabel>
+
+          <h2 className="mt-5 text-3xl font-semibold tracking-[-0.04em] text-navy sm:text-4xl">
+            Our upcoming milestone projects
+          </h2>
+
+          <div className="mt-9 grid gap-5 md:grid-cols-2">
+            <InstitutionCard
+              number="01"
+              title="H.P. Ghosh Medical College"
+              location="Ambassa, Tripura"
+              description="A 100-seat Medical College."
+            />
+
+            <InstitutionCard
+              number="02"
+              title="H.P. Ghosh Nursing College"
+              location="Ambassa, Tripura & Kolkata, West Bengal"
+              description="H.P. Ghosh Nursing College (Ambassa, Tripura & Kolkata, West Bengal)."
+            />
+          </div>
+
+          <p className="mt-8 max-w-3xl text-sm leading-7 text-muted-foreground">
+            We are looking for passionate, NMC/INC-qualified faculty members to build these institutions as temples of academic and clinical excellence.
+          </p>
+        </div>
+      </section>
+
+      {/* MEDICAL COLLEGE VACANCIES */}
+
+      <section id="openings" className="scroll-mt-24 bg-white">
+        <div className="mx-auto max-w-[1240px] px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
+          <SectionLabel>Faculty Opportunities</SectionLabel>
+
+          <div className="mt-5 flex flex-wrap items-end justify-between gap-5">
             <div>
-              <SectionLabel>Current Openings</SectionLabel>
-
-              <h2 className="mt-4 text-[2rem] font-semibold tracking-[-0.04em] text-navy sm:text-4xl">
-                Faculty Recruitment
-                <span className="font-normal text-navy/45"> 2026</span>
+              <h2 className="max-w-3xl text-3xl font-semibold tracking-[-0.04em] text-navy sm:text-4xl">
+                H.P. GHOSH MEDICAL COLLEGE, AMBASSA, TRIPURA
               </h2>
             </div>
 
-            <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
-              <MapPin
-                className="h-4 w-4 text-red"
-                strokeWidth={1.6}
-              />
-
-              Lalchari, Ambassa, Tripura
-            </div>
+            <span className="rounded-full border border-red/15 bg-red/5 px-4 py-2 text-[10px] font-semibold uppercase tracking-wider text-red">
+              Medical Faculty
+            </span>
           </div>
 
-          <div className="grid gap-10 pt-8 lg:grid-cols-[1fr_290px] lg:gap-16">
-            {/* POSITIONS */}
-
-            <div>
-              <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-navy/45">
-                Positions
-              </p>
-
-              <div className="mt-4 grid border-t border-border sm:grid-cols-2">
-                {positions.map((position, index) => (
-                  <div
-                    key={position}
-                    className={`
-                      group flex items-center gap-4 border-b border-border py-4
-                      transition-colors duration-300
-                      hover:bg-white
-                      ${index % 2 === 0 ? "sm:pr-7" : "sm:border-l sm:pl-7"}
-                    `}
-                  >
-                    <span className="text-[9px] font-semibold tabular-nums text-red">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-
-                    <span className="text-[14px] font-medium text-navy sm:text-[15px]">
-                      {position}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              <p className="mt-5 text-[12px] leading-5 text-muted-foreground">
-                <span className="font-medium text-navy">Qualifications:</span>{" "}
-                As per applicable NMC norms.
-              </p>
+          <div className="mt-9 overflow-hidden rounded-2xl border border-navy/10 bg-white shadow-[0_12px_40px_rgba(23,40,92,0.04)]">
+            <div className="hidden grid-cols-[0.85fr_1.6fr] bg-navy px-7 py-5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white md:grid">
+              <span>Position</span>
+              <span>Departments / Specialties</span>
             </div>
 
-            {/* DETAILS */}
+            {medicalPositions.map((item, index) => (
+              <PositionRow
+                key={index}
+                number={index + 1}
+                position={item.position}
+                details={item.details}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <aside className="border-t border-navy/10 pt-6 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
-              <div>
-                <div className="flex items-center gap-2">
-                  <CalendarDays
-                    className="h-4 w-4 text-red"
-                    strokeWidth={1.6}
-                  />
+      {/* NURSING COLLEGE VACANCIES */}
 
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                    Application Deadline
+      <section className="border-y border-border bg-light-grey/55">
+        <div className="mx-auto max-w-[1240px] px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
+          <SectionLabel>Nursing Faculty</SectionLabel>
+
+          <h2 className="mt-5 max-w-4xl text-3xl font-semibold tracking-[-0.04em] text-navy sm:text-4xl">
+            H.P. GHOSH NURSING COLLEGE | AMBASSA (TRIPURA) & KOLKATA (WEST BENGAL)
+          </h2>
+
+          <div className="mt-9 overflow-hidden rounded-2xl border border-navy/10 bg-white shadow-[0_12px_40px_rgba(23,40,92,0.04)]">
+            <div className="hidden grid-cols-[0.85fr_1.6fr] bg-navy px-7 py-5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white md:grid">
+              <span>Position</span>
+              <span>Qualifications & Experience</span>
+            </div>
+
+            {nursingPositions.map((item, index) => (
+              <PositionRow
+                key={index}
+                number={index + 1}
+                position={item.position}
+                details={item.details}
+              />
+            ))}
+          </div>
+
+          <div className="mt-7 rounded-2xl border border-light-blue bg-light-blue/40 p-6 sm:p-8">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.17em] text-red">
+              Nursing Specialties
+            </p>
+
+            <p className="mt-3 text-sm leading-7 text-navy/75">
+              Specialties required for Nursing Faculty: Medical-Surgical, OBG, Child Health (Paediatrics), Mental Health (Psychiatry), and Community Health Nursing. All qualifications as per INC & State Nursing Council Norms
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ELIGIBILITY AND COMPENSATION */}
+
+      <section className="bg-white">
+        <div className="mx-auto max-w-[1240px] px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
+          <SectionLabel>Faculty Information</SectionLabel>
+
+          <h2 className="mt-5 text-3xl font-semibold tracking-[-0.04em] text-navy sm:text-4xl">
+            ELIGIBILITY & COMPENSATION
+          </h2>
+
+          <div className="mt-9 grid gap-5 md:grid-cols-2">
+            <InfoCard
+              number="01"
+              title="Qualifications"
+              content="All requisite qualifications, teaching experience, and publications must strictly adhere to the latest National Medical Commission (NMC) and Indian Nursing Council (INC) guidelines."
+            />
+
+            <InfoCard
+              number="02"
+              title="Compensation"
+              content="Highly competitive remuneration package matching industry standards. Accommodation and campus facilities will be provided for outstation faculty in Ambassa."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* HOW TO APPLY */}
+
+      <section id="apply" className="scroll-mt-24 border-t border-border bg-light-grey/55">
+        <div className="mx-auto max-w-[1240px] px-5 py-16 sm:px-8 lg:px-10 lg:py-24">
+          <div className="mx-auto max-w-2xl text-center">
+            <SectionLabel centered>Applications</SectionLabel>
+
+            <h2 className="mt-5 text-3xl font-semibold tracking-[-0.04em] text-navy sm:text-4xl">
+              HOW TO APPLY
+            </h2>
+
+            <p className="mt-5 text-sm leading-7 text-muted-foreground">
+              Interested candidates are requested to submit their updated CV, recent passport-size photograph, and scanned copies of all relevant educational and experience certificates.
+            </p>
+          </div>
+
+          <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-[1.5rem] border border-navy/10 bg-white shadow-[0_18px_55px_rgba(23,40,92,0.06)]">
+            <div className="p-6 sm:p-9">
+              <div className="flex items-start gap-4">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-light-blue text-red">
+                  <Mail className="h-5 w-5" strokeWidth={1.7} />
+                </div>
+
+                <div className="min-w-0">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-red">
+                    Email your application to:
+                  </p>
+
+                  <a
+                    href="mailto:careers@hpghoshfoundation.org"
+                    className="mt-2 block break-all text-base font-semibold text-navy hover:text-red sm:text-xl"
+                  >
+                    careers@hpghoshfoundation.org
+                  </a>
+
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                    Please mention the Position, Specialty, and Preferred Location in the subject line.
+                  </p>
+                </div>
+              </div>
+
+              <div className="my-7 h-px bg-border" />
+
+              <div className="grid gap-6 sm:grid-cols-2">
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-red">
+                    Last Date for Application:
+                  </p>
+
+                  <p className="mt-2 text-sm font-medium leading-6 text-navy">
+                    [Insert Date / e.g., 30th September 2026]
                   </p>
                 </div>
 
-                <p className="mt-3 text-2xl font-semibold tracking-[-0.025em] text-navy">
-                  14 October
-                </p>
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-red">
+                    For inquiries, contact:
+                  </p>
 
-                <p className="text-sm text-navy/55">2026</p>
+                  <p className="mt-2 text-sm font-medium text-navy">
+                    +91-[0000000000] |
+                  </p>
+                </div>
               </div>
+            </div>
 
-              <div className="mt-7 border-t border-border pt-6">
-                <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                  What We Offer
-                </p>
-
-                <p className="mt-3 text-[14px] leading-6 text-navy">
-                  Competitive compensation, accommodation and food.
-                </p>
-              </div>
+            <div className="flex flex-col items-start justify-between gap-5 border-t border-border bg-light-blue/30 p-6 sm:flex-row sm:items-center sm:p-8">
+              <p className="max-w-sm text-sm leading-6 text-navy/70">
+                Submit your application with the required documents via email.
+              </p>
 
               <a
-                href="/careers/hpgmf_jd.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group mt-7 inline-flex items-center gap-2 border-b border-navy pb-1.5 text-[13px] font-semibold text-navy transition-colors hover:border-red hover:text-red"
+                href="mailto:careers@hpghoshfoundation.org"
+                className="group inline-flex h-11 shrink-0 items-center gap-2 rounded-xl bg-red px-6 text-xs font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
               >
-                View Job Description
-
-                <ArrowUpRight
-                  className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                  strokeWidth={1.6}
+                Apply via Email
+                <ArrowRight
+                  className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                  strokeWidth={1.7}
                 />
               </a>
-            </aside>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ==================================================
-          APPLY
-      ================================================== */}
+      {/* LOCATIONS */}
 
-      <section id="apply" className="bg-white">
-        <div className="mx-auto max-w-[1240px] px-5 py-14 sm:px-8 sm:py-20 lg:px-10 lg:py-24">
-          <div className="grid overflow-hidden rounded-[1.5rem] bg-navy shadow-[0_24px_65px_rgba(23,40,92,0.14)] lg:grid-cols-[1fr_0.8fr]">
-            <div className="p-6 sm:p-8 lg:p-10">
-              <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-red">
-                Apply
-              </p>
+      <section className="bg-navy">
+        <div className="mx-auto max-w-[1240px] px-5 py-14 sm:px-8 lg:px-10 lg:py-20">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-red">
+            Our Locations
+          </p>
 
-              <h2 className="mt-3 text-[2rem] font-semibold tracking-[-0.04em] text-white sm:text-4xl">
-                Ready to Join Us?
-              </h2>
+          <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-white sm:text-3xl">
+            H.P. GHOSH MEMORIAL FOUNDATION
+          </h2>
 
-              <p className="mt-4 max-w-lg text-[13px] leading-6 text-white/55 sm:text-[14px]">
-                Review the relevant Job Description and send your application
-                with the required details to our recruitment team.
-              </p>
-            </div>
+          <div className="mt-9 grid gap-7 border-t border-white/15 pt-8 md:grid-cols-3">
+            <LocationItem
+              label="Registered Office"
+              address="DN 32, Sector V, Salt Lake, Kolkata, West Bengal - 700091"
+            />
 
-            <div className="border-t border-white/10 bg-white/[0.045] p-6 sm:p-8 lg:flex lg:flex-col lg:justify-center lg:border-l lg:border-t-0 lg:p-10">
-              <div className="flex items-center gap-2">
-                <Mail
-                  className="h-4 w-4 text-red"
-                  strokeWidth={1.6}
-                />
+            <LocationItem
+              label="Campus in Tripura"
+              address="Lalchhari, Ambassa, Dhalai District, Tripura"
+            />
 
-                <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/45">
-                  Send Your Application
-                </p>
-              </div>
-
-              <a
-                href="mailto:careers@hpghoshfoundation.org?subject=Application%20-%20Faculty%20Recruitment%202026"
-                className="mt-3 block break-all text-[16px] font-medium text-white transition-colors hover:text-red sm:text-lg"
-              >
-                careers@hpghoshfoundation.org
-              </a>
-
-              <a
-                href="mailto:careers@hpghoshfoundation.org?subject=Application%20-%20Faculty%20Recruitment%202026"
-                className="group mt-6 inline-flex w-fit items-center gap-2 text-[13px] font-semibold text-white"
-              >
-                Apply via Email
-
-                <ArrowRight
-                  className="h-4 w-4 text-red transition-transform duration-300 group-hover:translate-x-1"
-                  strokeWidth={1.6}
-                />
-              </a>
-            </div>
+            <LocationItem
+              label="Campus in West Bengal"
+              address="Nimta, Birati, Kolkata, West Bengal"
+            />
           </div>
         </div>
       </section>
@@ -260,65 +368,154 @@ export function CareersPageContent() {
 }
 
 /* ======================================================
-   CAREER IMAGE
-====================================================== */
-
-function CareerImage() {
-  return (
-    <div className="relative">
-      <div
-        aria-hidden="true"
-        className="absolute left-3 top-3 h-full w-full rounded-[1.5rem] bg-light-blue/70 sm:left-4 sm:top-4"
-      />
-
-      <div className="group relative h-[270px] overflow-hidden rounded-[1.5rem] ring-1 ring-navy/10 shadow-[0_24px_65px_rgba(23,40,92,0.14)] transition-[transform,box-shadow] duration-500 sm:h-[390px] lg:h-[480px] lg:hover:-translate-y-1 lg:hover:shadow-[0_30px_80px_rgba(23,40,92,0.18)]">
-        <Image
-          src="/careers/careers-hero.webp"
-          alt="Careers at H P Ghosh Memorial Medical College"
-          fill
-          priority
-          sizes="(max-width: 1024px) 100vw, 55vw"
-          className="object-cover object-center transition-transform duration-[1200ms] ease-out motion-safe:group-hover:scale-[1.035] motion-reduce:transition-none"
-        />
-
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-navy/70 via-navy/15 to-transparent" />
-
-        <div className="absolute bottom-5 left-5 right-5">
-          <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-white/55">
-            H P Ghosh Memorial
-          </p>
-
-          <div className="mt-1 flex items-end justify-between gap-4">
-            <p className="text-lg font-medium text-white sm:text-xl">
-              Medical College
-            </p>
-
-            <span className="hidden text-[9px] font-semibold uppercase tracking-[0.16em] text-white/55 sm:block">
-              Learn · Lead · Serve
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ======================================================
-   LABEL
+   REUSABLE COMPONENTS
 ====================================================== */
 
 function SectionLabel({
   children,
+  centered = false,
 }: {
   children: React.ReactNode;
+  centered?: boolean;
 }) {
   return (
-    <div className="flex items-center gap-3">
+    <div
+      className={`flex items-center gap-3 ${
+        centered ? "justify-center" : ""
+      }`}
+    >
       <span className="h-px w-7 bg-red" />
 
-      <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-red sm:text-[10px]">
+      <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-red">
         {children}
       </span>
+
+      {centered && <span className="h-px w-7 bg-red" />}
+    </div>
+  );
+}
+
+function InstitutionCard({
+  number,
+  title,
+  location,
+  description,
+}: {
+  number: string;
+  title: string;
+  location: string;
+  description: string;
+}) {
+  return (
+    <article className="group relative overflow-hidden rounded-[1.5rem] border border-navy/10 bg-white p-7 shadow-[0_12px_35px_rgba(23,40,92,0.045)] transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-9">
+      <div className="absolute right-0 top-0 h-24 w-24 rounded-bl-[5rem] bg-light-blue/40" />
+
+      <div className="relative">
+        <span className="text-xs font-semibold tracking-widest text-red">
+          {number}
+        </span>
+
+        <BriefcaseBusiness
+          className="mt-7 h-7 w-7 text-navy"
+          strokeWidth={1.5}
+        />
+
+        <h3 className="mt-5 max-w-sm text-2xl font-semibold tracking-[-0.035em] text-navy">
+          {title}
+        </h3>
+
+        <div className="mt-4 flex items-start gap-2 text-sm text-navy/60">
+          <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-red" />
+          <span>{location}</span>
+        </div>
+
+        <p className="mt-5 border-t border-border pt-5 text-sm leading-6 text-muted-foreground">
+          {description}
+        </p>
+      </div>
+    </article>
+  );
+}
+
+function PositionRow({
+  number,
+  position,
+  details,
+}: {
+  number: number;
+  position: string;
+  details: string;
+}) {
+  return (
+    <div className="grid gap-4 border-b border-border px-5 py-6 transition-colors last:border-b-0 hover:bg-light-blue/20 sm:px-7 md:grid-cols-[0.85fr_1.6fr] md:gap-8">
+      <div className="flex items-start gap-4">
+        <span className="mt-1 text-[10px] font-semibold tracking-wider text-red">
+          {String(number).padStart(2, "0")}
+        </span>
+
+        <h3 className="text-sm font-semibold leading-6 text-navy sm:text-[15px]">
+          {position}
+        </h3>
+      </div>
+
+      <p className="pl-7 text-[13px] leading-7 text-muted-foreground sm:text-sm md:pl-0">
+        {details}
+      </p>
+    </div>
+  );
+}
+
+function InfoCard({
+  number,
+  title,
+  content,
+}: {
+  number: string;
+  title: string;
+  content: string;
+}) {
+  return (
+    <article className="rounded-[1.5rem] border border-navy/10 bg-white p-7 shadow-[0_12px_35px_rgba(23,40,92,0.045)] sm:p-9">
+      <span className="text-[11px] font-semibold tracking-widest text-red">
+        {number}
+      </span>
+
+      <h3 className="mt-5 text-2xl font-semibold tracking-[-0.03em] text-navy">
+        {title}
+      </h3>
+
+      <div className="mt-5 h-px w-10 bg-red" />
+
+      <p className="mt-5 text-sm leading-7 text-muted-foreground">
+        {content}
+      </p>
+    </article>
+  );
+}
+
+function LocationItem({
+  label,
+  address,
+}: {
+  label: string;
+  address: string;
+}) {
+  return (
+    <div className="flex items-start gap-3">
+      <MapPin
+        className="mt-0.5 h-5 w-5 shrink-0 text-red"
+        strokeWidth={1.6}
+      />
+
+      <div>
+        <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/50">
+          {label}
+        </p>
+
+        <p className="mt-3 max-w-xs text-sm leading-6 text-white/85">
+          {address}
+        </p>
+      </div>
     </div>
   );
 }

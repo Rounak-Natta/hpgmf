@@ -8,9 +8,9 @@ import { Menu, X } from "lucide-react";
 
 /* ======================================================
    NAVIGATION
-   ====================================================== */
+====================================================== */
 
-const leftNavItems = [
+const navItems = [
   {
     label: "Home",
     href: "/",
@@ -23,9 +23,6 @@ const leftNavItems = [
     label: "Academics",
     href: "/academics",
   },
-];
-
-const rightNavItems = [
   {
     label: "Campus",
     href: "/campus",
@@ -38,7 +35,7 @@ const rightNavItems = [
 
 /* ======================================================
    COMPONENT
-   ====================================================== */
+====================================================== */
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -48,11 +45,9 @@ export default function Navbar() {
 
   const isHomePage = pathname === "/";
 
-  const mobileNavItems = [...leftNavItems, ...rightNavItems];
-
   /* ======================================================
-     SCROLL STATE
-     ====================================================== */
+     SCROLL
+  ====================================================== */
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,26 +66,31 @@ export default function Navbar() {
   }, []);
 
   /* ======================================================
-     HELPERS
-     ====================================================== */
+     CLOSE MOBILE MENU ON ROUTE CHANGE
+  ====================================================== */
 
-  const closeMenu = () => {
+  useEffect(() => {
     setIsOpen(false);
-  };
+  }, [pathname]);
 
-  /*
-   * Homepage:
-   * transparent initially, solid after scrolling.
-   *
-   * Inner pages:
-   * always solid.
-   */
+  /* ======================================================
+     HEADER STATE
+  ====================================================== */
+
   const showSolidHeader =
     !isHomePage || isScrolled || isOpen;
 
+  const isActiveLink = (href: string) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
+
   /* ======================================================
      RENDER
-     ====================================================== */
+  ====================================================== */
 
   return (
     <header
@@ -107,154 +107,169 @@ export default function Navbar() {
 
         ${
           showSolidHeader
-            ? "border-b border-border bg-white shadow-[0_8px_30px_rgba(23,40,92,0.08)]"
-            : "border-b border-white/15 bg-transparent backdrop-blur-[8px]"
+            ? "border-b border-border/80 bg-white/95 shadow-[0_8px_30px_rgba(23,40,92,0.07)] backdrop-blur-xl"
+            : "border-b border-white/15 bg-transparent backdrop-blur-[6px]"
         }
       `}
     >
-      {/* ==================================================
-          MAIN NAVBAR
-      ================================================== */}
+      <div
+        className="
+          mx-auto
+          flex
+          h-20
+          max-w-[1240px]
+          items-center
+          justify-between
+          px-5
 
-      <div className="relative mx-auto flex h-20 max-w-7xl items-center px-5 sm:px-6 lg:px-8">
+          sm:px-6
+          lg:px-8
+        "
+      >
         {/* ==================================================
-            DESKTOP NAVIGATION
+            LEFT — LOGO
         ================================================== */}
 
-        <div className="hidden w-full items-center justify-center lg:flex">
-          {/* LEFT */}
-
-          <nav
-            aria-label="Primary navigation"
-            className="flex items-center gap-8 pr-12"
+        <div className="flex shrink-0 items-center">
+          <Link
+            href="/"
+            aria-label="HP Ghosh Memorial Foundation - Home"
+            className="
+              relative
+              z-10
+              flex
+              items-center
+              transition-opacity
+              duration-300
+              hover:opacity-85
+            "
           >
-            {leftNavItems.map((item) => {
-              const isActive =
-                item.href === "/about"
-                  ? pathname === "/about"
-                  : item.href === "/" && pathname === "/";
+            <Image
+              src="/logo.png"
+              alt="HP Ghosh Memorial Foundation"
+              width={180}
+              height={80}
+              priority
+              className="
+                h-auto
+                w-[78px]
+                object-contain
 
-              return (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`
-                    relative
-                    text-sm
-                    font-medium
-                    transition-colors
-                    duration-300
+                sm:w-[84px]
+                lg:w-[88px]
+              "
+            />
+          </Link>
+        </div>
 
-                    ${
-                      showSolidHeader
-                        ? isActive
-                          ? "text-red"
-                          : "text-navy hover:text-red"
-                        : "text-white hover:text-white/70"
-                    }
-                  `}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
+        {/* ==================================================
+            CENTER — DESKTOP NAVIGATION
+        ================================================== */}
 
-          {/* CENTER LOGO SPACE */}
+        <nav
+          aria-label="Primary navigation"
+          className="
+            absolute
+            left-1/2
+            hidden
+            -translate-x-1/2
+            items-center
+            gap-7
 
-          <div
-            aria-hidden="true"
-            className="w-20 shrink-0"
-          />
+            lg:flex
+            xl:gap-9
+          "
+        >
+          {navItems.map((item) => {
+            const isActive = isActiveLink(item.href);
 
-          {/* RIGHT */}
-
-          <nav
-            aria-label="Secondary navigation"
-            className="flex items-center gap-8 pl-12"
-          >
-            {rightNavItems.map((item) => (
+            return (
               <Link
                 key={item.label}
                 href={item.href}
+                scroll
                 className={`
-                  text-sm
+                  group
+                  relative
+                  py-2
+                  text-[14px]
                   font-medium
                   transition-colors
                   duration-300
 
                   ${
                     showSolidHeader
-                      ? "text-navy hover:text-red"
-                      : "text-white hover:text-white/70"
+                      ? isActive
+                        ? "text-red"
+                        : "text-navy hover:text-red"
+                      : isActive
+                        ? "text-white"
+                        : "text-white/90 hover:text-white"
                   }
                 `}
               >
                 {item.label}
+
+                {/* ACTIVE / HOVER LINE */}
+                <span
+                  className={`
+                    absolute
+                    bottom-0
+                    left-0
+                    h-[2px]
+                    rounded-full
+                    transition-all
+                    duration-300
+
+                    ${
+                      showSolidHeader
+                        ? "bg-red"
+                        : "bg-white"
+                    }
+
+                    ${
+                      isActive
+                        ? "w-full"
+                        : "w-0 group-hover:w-full"
+                    }
+                  `}
+                />
               </Link>
-            ))}
-
-            {/* CONTACT */}
-
-            <Link
-              href="/contact"
-              className="
-                inline-flex
-                h-11
-                items-center
-                justify-center
-                rounded-xl
-                bg-red
-                px-5
-                text-sm
-                font-semibold
-                text-white
-                transition-all
-                duration-300
-                hover:-translate-y-0.5
-                hover:opacity-90
-              "
-            >
-              Contact Us
-            </Link>
-          </nav>
-        </div>
+            );
+          })}
+        </nav>
 
         {/* ==================================================
-            LOGO
+            RIGHT — CTA
         ================================================== */}
 
-        <Link
-          href="/"
-          onClick={closeMenu}
-          aria-label="HP Ghosh Memorial Foundation - Home"
-          className="
-            absolute
-            left-5
-            top-1/2
-            z-10
-            -translate-y-1/2
-
-            sm:left-6
-
-            lg:left-1/2
-            lg:-translate-x-1/2
-          "
-        >
-          <Image
-            src="/logo.png"
-            alt="HP Ghosh Memorial Foundation"
-            width={180}
-            height={80}
-            priority
+        <div className="ml-auto hidden items-center lg:flex">
+          <Link
+            href="/contact"
+            scroll
             className="
-              h-auto
-              w-[80px]
-              object-contain
-              lg:w-[80px]
+              inline-flex
+              h-11
+              items-center
+              justify-center
+              rounded-xl
+              bg-red
+              px-6
+              text-sm
+              font-semibold
+              text-white
+              shadow-[0_8px_24px_rgba(237,50,61,0.18)]
+              transition-all
+              duration-300
+
+              hover:-translate-y-0.5
+              hover:shadow-[0_12px_28px_rgba(237,50,61,0.25)]
+              hover:brightness-[0.97]
             "
-          />
-        </Link>
+          >
+            Contact Us
+          </Link>
+        </div>
 
         {/* ==================================================
             MOBILE MENU BUTTON
@@ -279,6 +294,7 @@ export default function Navbar() {
             rounded-lg
             transition-all
             duration-300
+
             lg:hidden
 
             ${
@@ -289,9 +305,9 @@ export default function Navbar() {
           `}
         >
           {isOpen ? (
-            <X className="size-6 stroke-[1.5]" />
+            <X className="size-6 stroke-[1.6]" />
           ) : (
-            <Menu className="size-6 stroke-[1.5]" />
+            <Menu className="size-6 stroke-[1.6]" />
           )}
         </button>
       </div>
@@ -308,47 +324,66 @@ export default function Navbar() {
           transition-[max-height,opacity]
           duration-300
           ease-out
+
           lg:hidden
 
           ${
             isOpen
-              ? "max-h-[520px] border-t border-border opacity-100"
-              : "max-h-0 opacity-0"
+              ? "max-h-[520px] border-t border-border/80 opacity-100"
+              : "max-h-0 border-t border-transparent opacity-0"
           }
         `}
       >
         <nav
           aria-label="Mobile navigation"
-          className="mx-auto max-w-7xl px-5 pb-6 pt-2 sm:px-6"
-        >
-          {mobileNavItems.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              onClick={closeMenu}
-              className="
-                flex
-                min-h-14
-                items-center
-                border-b
-                border-border/70
-                text-base
-                font-medium
-                text-navy
-                transition-colors
-                duration-200
-                hover:text-red
-              "
-            >
-              {item.label}
-            </Link>
-          ))}
+          className="
+            mx-auto
+            max-w-[1240px]
+            px-5
+            pb-6
+            pt-2
 
-          {/* MOBILE CONTACT */}
+            sm:px-6
+          "
+        >
+          {navItems.map((item) => {
+            const isActive = isActiveLink(item.href);
+
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                scroll
+                onClick={() => setIsOpen(false)}
+                className={`
+                  flex
+                  min-h-14
+                  items-center
+                  border-b
+                  border-border/70
+                  text-[15px]
+                  font-medium
+                  transition-colors
+                  duration-200
+
+                  ${
+                    isActive
+                      ? "text-red"
+                      : "text-navy hover:text-red"
+                  }
+                `}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+
+          {/* MOBILE CTA */}
 
           <Link
-            href="/#contact"
-            onClick={closeMenu}
+            href="/contact"
+            scroll
+            onClick={() => setIsOpen(false)}
             className="
               mt-5
               flex
@@ -362,9 +397,11 @@ export default function Navbar() {
               text-sm
               font-semibold
               text-white
-              transition-opacity
+              shadow-[0_8px_24px_rgba(237,50,61,0.18)]
+              transition-all
               duration-300
-              hover:opacity-90
+
+              hover:brightness-[0.97]
             "
           >
             Contact Us

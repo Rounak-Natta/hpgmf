@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import Navbar from "@/components/home/navbar";
 import Marquee from "@/components/home/marquee";
+import SiteFooter from "@/components/footer";
 import { ContactPageContent } from "@/components/contact/contact-page-content";
 
 export const metadata: Metadata = {
@@ -12,11 +13,15 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-background">
+    <>
       <Marquee />
       <Navbar />
 
-      <ContactPageContent />
-    </main>
+      <main className="min-h-screen bg-background">
+        <ContactPageContent />
+      </main>
+
+      <SiteFooter />
+    </>
   );
 }

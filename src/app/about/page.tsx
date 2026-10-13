@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 
 import Marquee from "@/components/home/marquee";
-import Navbar  from "@/components/home/navbar";
+import Navbar from "@/components/home/navbar";
+import SiteFooter from "@/components/footer";
 import { AboutPageContent } from "@/components/about/about-page-content";
 
 export const metadata: Metadata = {
@@ -12,11 +13,15 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-background">
+    <>
       <Marquee />
       <Navbar />
 
-      <AboutPageContent />
-    </main>
+      <main className="min-h-screen bg-background">
+        <AboutPageContent />
+      </main>
+
+      <SiteFooter />
+    </>
   );
 }

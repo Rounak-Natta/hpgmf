@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 
 import Navbar from "@/components/home/navbar";
 import Marquee from "@/components/home/marquee";
-import { CareersPageContent } from "@/components/careers/careers-page-content";
+import SiteFooter from "@/components/footer";
+import { CareerPageContent } from "@/components/careers/careers-page-content";
 
 export const metadata: Metadata = {
   title: "Careers | HP Ghosh Memorial Foundation",
@@ -12,11 +13,15 @@ export const metadata: Metadata = {
 
 export default function CareersPage() {
   return (
-    <main className="min-h-screen bg-background">
+    <>
       <Marquee />
       <Navbar />
 
-      <CareersPageContent />
-    </main>
+      <main className="min-h-screen bg-background">
+        <CareerPageContent />
+      </main>
+
+      <SiteFooter />
+    </>
   );
 }
